@@ -1,0 +1,57 @@
+[
+  {
+    "id": "r1",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "type": "High Waves",
+    "description": "Large swells impacting shoreline near Ocean Beach.",
+    "mediaUrl": "/placeholder.svg",
+    "date": "2025-09-20T10:15:00Z",
+    "source": "Citizen",
+    "verified": false
+  },
+  {
+    "id": "r2",
+    "lat": 25.7617,
+    "lng": -80.1918,
+    "type": "Flooding",
+    "description": "Street flooding reported near coastal boulevard.",
+    "mediaUrl": "/placeholder.svg",
+    "date": "2025-09-21T14:30:00Z",
+    "source": "Citizen",
+    "verified": true
+  },
+  {
+    "id": "r3",
+    "lat": 35.6762,
+    "lng": 139.6503,
+    "type": "Tsunami",
+    "description": "Tsunami watch issued. Monitoring wave activity.",
+    "mediaUrl": "/placeholder.svg",
+    "date": "2025-09-22T01:05:00Z",
+    "source": "Official",
+    "verified": true
+  },
+  {
+    "id": "r4",
+    "lat": 13.0827,
+    "lng": 80.2707,
+    "type": "Erosion",
+    "description": "Rapid shoreline erosion observed after storm.",
+    "mediaUrl": "/placeholder.svg",
+    "date": "2025-09-23T08:42:00Z",
+    "source": "Citizen",
+    "verified": false
+  },
+  {
+    "id": "r5",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "type": "Other",
+    "description": "Debris accumulation along the embankment.",
+    "mediaUrl": "/placeholder.svg",
+    "date": "2025-09-24T16:10:00Z",
+    "source": "Citizen",
+    "verified": true
+  }
+]

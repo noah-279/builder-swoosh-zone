@@ -1,0 +1,9 @@
+{
+  "keywords": [
+    { "term": "flood", "count": 132, "sentiment": "negative" },
+    { "term": "tsunami", "count": 64, "sentiment": "negative" },
+    { "term": "erosion", "count": 48, "sentiment": "neutral" },
+    { "term": "high waves", "count": 85, "sentiment": "neutral" },
+    { "term": "safety", "count": 102, "sentiment": "positive" }
+  ]
+}
