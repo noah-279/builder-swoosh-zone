@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AlertBanner message="Coastal high wave advisory in effect. Stay away from shorelines." />
+      <AlertBanner message="India coastal high wave advisory in effect. Avoid low-lying shorelines." />
 
       <header className="px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
