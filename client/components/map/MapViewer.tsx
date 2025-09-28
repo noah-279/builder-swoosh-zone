@@ -37,11 +37,28 @@ function iconColor(t: Hazard["type"]) {
   }
 }
 
-function createGlowingMarker(h: Hazard) {
-  const color = iconColor(h.type);
-  const html = `<div style="width:18px;height:18px;border-radius:50%;background:hsla(${color},0.9);box-shadow:0 0 14px hsla(${color},0.9),0 0 28px hsla(${color},0.5);border:2px solid rgba(255,255,255,.2)" class="pulse-glow"></div>`;
-  return L.marker([h.lat, h.lng], {
-    icon: L.divIcon({ className: "", html, iconSize: [18, 18], iconAnchor: [9, 9] }),
+type Cluster = { lat: number; lng: number; count: number; items: Hazard[] };
+
+function severity(count: number) {
+  if (count >= 6) return "high" as const;
+  if (count >= 3) return "med" as const;
+  return "low" as const;
+}
+
+function severityColor(count: number) {
+  const s = severity(count);
+  if (s === "high") return "var(--neon-red)";
+  if (s === "med") return "var(--neon-orange)";
+  return "var(--neon-green)";
+}
+
+function createSeverityMarker(c: Cluster) {
+  const color = severityColor(c.count);
+  const size = Math.min(22 + c.count * 2, 36);
+  const pulse = c.count >= 6 ? "pulse-glow" : "";
+  const html = `<div class="${pulse}" style="width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;background:hsla(${color},0.18);color:#fff;font-weight:700;border:1px solid hsla(${color},0.6);box-shadow:0 0 14px hsla(${color},0.7),0 0 28px hsla(${color},0.35);">${c.count}</div>`;
+  return L.marker([c.lat, c.lng], {
+    icon: L.divIcon({ className: "", html, iconSize: [size, size], iconAnchor: [size/2, size/2] }),
   });
 }
 
@@ -98,29 +115,58 @@ export default function MapViewer({ data, filters }: { data: Hazard[]; filters: 
     const layer = layerGroupRef.current;
     layer.clearLayers();
 
-    // Markers with popups
-    filtered.forEach((h) => {
-      const m = createGlowingMarker(h).addTo(layer);
+    // Aggregate reports into grid clusters for severity
+    const grid = 0.7; // degrees (~75km)
+    const mapClusters = new Map<string, Cluster>();
+
+    for (const h of filtered) {
+      const gx = Math.round(h.lat / grid);
+      const gy = Math.round(h.lng / grid);
+      const key = `${gx}_${gy}`;
+      const prev = mapClusters.get(key);
+      if (prev) {
+        prev.count += 1;
+        prev.items.push(h);
+        prev.lat = (prev.lat * (prev.count - 1) + h.lat) / prev.count;
+        prev.lng = (prev.lng * (prev.count - 1) + h.lng) / prev.count;
+      } else {
+        mapClusters.set(key, { lat: h.lat, lng: h.lng, count: 1, items: [h] });
+      }
+    }
+
+    const clusters = Array.from(mapClusters.values());
+
+    // Markers with popups per cluster
+    clusters.forEach((c) => {
+      const m = createSeverityMarker(c).addTo(layer);
+      const list = c.items
+        .slice(0, 4)
+        .map(
+          (it) => `
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <img src="${it.mediaUrl}" alt="m" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.9" />
+            <div style="font-size:12px;color:#cbd5e1"><strong style="color:#fff">${it.type}</strong><br/>${it.description}</div>
+          </div>`,
+        )
+        .join("");
       const popup = `
-        <div style="min-width:220px">
+        <div style="min-width:240px">
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
-            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(${iconColor(h.type)});"></span>
-            <strong style="color:#fff">${h.type}</strong>
-            ${h.verified ? '<span style="margin-left:auto;color:#7CFC9A">Verified</span>' : ""}
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(${severityColor(c.count)});"></span>
+            <strong style="color:#fff">Reports: ${c.count}</strong>
           </div>
-          <img src="${h.mediaUrl}" alt="media" style="width:100%;height:110px;object-fit:cover;border-radius:8px;opacity:.9" />
-          <p style="margin-top:6px;color:#cbd5e1">${h.description}</p>
+          ${list}
         </div>`;
       m.bindPopup(popup);
     });
 
-    // Heatmap
-    const heatPoints = filtered.map((h) => [h.lat, h.lng, 0.4 + (h.verified ? 0.3 : 0)] as [number, number, number]);
+    // Heatmap weighted by cluster count
+    const heatPoints = clusters.map((c) => [c.lat, c.lng, Math.min(0.3 + c.count * 0.12, 0.9)] as [number, number, number]);
 
     if (heatRef.current) {
       heatRef.current.setLatLngs(heatPoints);
     } else {
-      heatRef.current = (L as any).heatLayer(heatPoints, { radius: 20, blur: 15, minOpacity: 0.3, maxZoom: 10 }).addTo(mapRef.current!);
+      heatRef.current = (L as any).heatLayer(heatPoints, { radius: 22, blur: 16, minOpacity: 0.3, maxZoom: 10 }).addTo(mapRef.current!);
     }
   }, [filtered]);
 
