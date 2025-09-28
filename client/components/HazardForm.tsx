@@ -15,16 +15,26 @@ export default function HazardForm({ onSubmit }: Props) {
   const [lng, setLng] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    const clampToIndia = (la: number, ln: number) => {
+      const lat = Math.min(37.5, Math.max(6.5, la));
+      const lng = Math.min(97.5, Math.max(68.0, ln));
+      return { lat, lng };
+    };
+    if (!navigator.geolocation) {
+      const c = clampToIndia(22.9734, 78.6569);
+      setLat(c.lat); setLng(c.lng);
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setLat(pos.coords.latitude);
-        setLng(pos.coords.longitude);
+        const c = clampToIndia(pos.coords.latitude, pos.coords.longitude);
+        setLat(c.lat);
+        setLng(c.lng);
       },
       () => {
-        // default to a safe view if permission denied
-        setLat(20);
-        setLng(0);
+        const c = clampToIndia(22.9734, 78.6569);
+        setLat(c.lat);
+        setLng(c.lng);
       },
     );
   }, []);
