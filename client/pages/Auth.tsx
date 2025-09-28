@@ -44,9 +44,10 @@ export default function Auth() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className={cn("w-full max-w-md p-6 rounded-2xl glass animate-slide-up")}>        
-        <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-glow-blue">Integrated Ocean Hazard</h1>
-          <p className="text-sm text-muted-foreground mt-1">{mode === "signup" ? "Create an account" : "Welcome back"}</p>
+        <div className="mb-6 text-center grid place-items-center gap-3">
+          <Logo size={56} />
+          <h1 className="text-2xl font-bold text-glow-blue">Samraksh</h1>
+          <p className="text-sm text-muted-foreground -mt-1">{mode === "signup" ? "Create an account" : "Welcome back"}</p>
         </div>
         <div className="flex gap-2 mb-6">
           <button
