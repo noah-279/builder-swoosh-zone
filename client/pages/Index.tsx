@@ -51,7 +51,7 @@ export default function Index() {
                     value={filters.type}
                     onChange={(e) => setFilters((f) => ({ ...f, type: e.target.value }))}
                   >
-                    {(["All", "Flooding", "Tsunami", "High Waves", "Erosion", "Other"]) as const).map((t) => (
+                    {( ["All", "Flooding", "Tsunami", "High Waves", "Erosion", "Other"] as const).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
@@ -65,7 +65,7 @@ export default function Index() {
                     value={filters.source}
                     onChange={(e) => setFilters((f) => ({ ...f, source: e.target.value }))}
                   >
-                    {(["All", "Citizen", "Official"]) as const).map((t) => (
+                    {( ["All", "Citizen", "Official"] as const).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
