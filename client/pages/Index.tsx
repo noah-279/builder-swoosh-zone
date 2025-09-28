@@ -27,8 +27,8 @@ export default function Index() {
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-lg bg-[hsl(var(--primary))] glow-blue" />
           <div>
-            <h1 className="font-bold tracking-wide text-lg text-glow-blue">Integrated Ocean Hazard</h1>
-            <p className="text-xs text-white/60 -mt-1">Real-time citizen + analytics dashboard</p>
+            <h1 className="font-bold tracking-wide text-lg text-glow-blue">Integrated Ocean Hazard — India</h1>
+            <p className="text-xs text-white/60 -mt-1">India-only citizen reporting + analytics</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
