@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import Logo from "@/components/Logo";
 
 const passwordRules = [
   { label: "8+ chars", test: (s: string) => s.length >= 8 },

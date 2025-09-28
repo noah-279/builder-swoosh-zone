@@ -5,6 +5,7 @@ import RoleSwitch from "@/components/RoleSwitch";
 import HazardForm from "@/components/HazardForm";
 import SocialAnalyticsPanel from "@/components/SocialAnalyticsPanel";
 import VerifiedHazardsSidebar from "@/components/VerifiedHazardsSidebar";
+import Logo from "@/components/Logo";
 import data from "@/data/reports.json";
 import { Link } from "react-router-dom";
 
@@ -25,10 +26,10 @@ export default function Index() {
 
       <header className="px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-[hsl(var(--primary))] glow-blue" />
+          <Logo size={40} />
           <div>
-            <h1 className="font-bold tracking-wide text-lg text-glow-blue">Integrated Ocean Hazard — India</h1>
-            <p className="text-xs text-white/60 -mt-1">India-only citizen reporting + analytics</p>
+            <h1 className="font-bold tracking-wide text-lg text-glow-blue">Samraksh — India</h1>
+            <p className="text-xs text-white/60 -mt-1">Integrated ocean hazard reporting & analytics</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
