@@ -58,11 +58,22 @@ function createSeverityMarker(c: Cluster) {
   const pulse = c.count >= 6 ? "pulse-glow" : "";
   const html = `<div class="${pulse}" style="width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;background:hsla(${color},0.35);color:#fff;font-weight:800;letter-spacing:.2px;border:1px solid hsla(${color},0.8);box-shadow:0 0 12px hsla(${color},0.9),0 0 32px hsla(${color},0.5);">${c.count}</div>`;
   return L.marker([c.lat, c.lng], {
-    icon: L.divIcon({ className: "", html, iconSize: [size, size], iconAnchor: [size/2, size/2] }),
+    icon: L.divIcon({
+      className: "",
+      html,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+    }),
   });
 }
 
-export default function MapViewer({ data, filters }: { data: Hazard[]; filters: Filters }) {
+export default function MapViewer({
+  data,
+  filters,
+}: {
+  data: Hazard[];
+  filters: Filters;
+}) {
   const mapRef = useRef<LeafletMap | null>(null);
   const layerGroupRef = useRef<L.LayerGroup | null>(null);
   const heatRef = useRef<any>(null);
@@ -71,9 +82,14 @@ export default function MapViewer({ data, filters }: { data: Hazard[]; filters: 
     return data.filter((d) => {
       const typeOk = filters.type === "All" || d.type === filters.type;
       const sourceOk = filters.source === "All" || d.source === filters.source;
-      const verOk = filters.verified === "All" || filters.verified === undefined ? true : d.verified === filters.verified;
+      const verOk =
+        filters.verified === "All" || filters.verified === undefined
+          ? true
+          : d.verified === filters.verified;
       const t = new Date(d.date).getTime();
-      const fromOk = filters.from ? t >= new Date(filters.from).getTime() : true;
+      const fromOk = filters.from
+        ? t >= new Date(filters.from).getTime()
+        : true;
       const toOk = filters.to ? t <= new Date(filters.to).getTime() : true;
       return typeOk && sourceOk && verOk && fromOk && toOk;
     });
@@ -184,14 +200,33 @@ export default function MapViewer({ data, filters }: { data: Hazard[]; filters: 
     });
 
     // Heatmap weighted by cluster count
-    const heatPoints = clusters.map((c) => [c.lat, c.lng, Math.min(0.3 + c.count * 0.12, 0.9)] as [number, number, number]);
+    const heatPoints = clusters.map(
+      (c) =>
+        [c.lat, c.lng, Math.min(0.3 + c.count * 0.12, 0.9)] as [
+          number,
+          number,
+          number,
+        ],
+    );
 
     if (heatRef.current) {
       heatRef.current.setLatLngs(heatPoints);
     } else {
-      heatRef.current = (L as any).heatLayer(heatPoints, { radius: 22, blur: 16, minOpacity: 0.3, maxZoom: 10 }).addTo(mapRef.current!);
+      heatRef.current = (L as any)
+        .heatLayer(heatPoints, {
+          radius: 22,
+          blur: 16,
+          minOpacity: 0.3,
+          maxZoom: 10,
+        })
+        .addTo(mapRef.current!);
     }
   }, [filtered]);
 
-  return <div id="hazard-map" className="w-full h-full rounded-xl overflow-hidden ring-1 ring-white/10" />;
+  return (
+    <div
+      id="hazard-map"
+      className="w-full h-full rounded-xl overflow-hidden ring-1 ring-white/10"
+    />
+  );
 }

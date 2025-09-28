@@ -1,5 +1,11 @@
 type Role = "Citizen" | "Analyst" | "Official";
-export default function RoleSwitch({ value, onChange }: { value: Role; onChange: (r: Role) => void }) {
+export default function RoleSwitch({
+  value,
+  onChange,
+}: {
+  value: Role;
+  onChange: (r: Role) => void;
+}) {
   const roles: Role[] = ["Citizen", "Analyst", "Official"];
   return (
     <div className="inline-flex bg-black/30 border border-white/10 rounded-full p-1">

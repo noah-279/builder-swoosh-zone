@@ -111,9 +111,22 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(60rem 60rem at -10% -10%, hsl(var(--ocean-mid)) 0%, transparent 50%),
-      radial-gradient(50rem 50rem at 110% -10%, hsl(var(--ocean-bottom)) 0%, transparent 50%),
-      linear-gradient(180deg, hsl(var(--ocean-top)) 0%, hsl(var(--ocean-bottom)) 100%);
+    background-image:
+      radial-gradient(
+        60rem 60rem at -10% -10%,
+        hsl(var(--ocean-mid)) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        50rem 50rem at 110% -10%,
+        hsl(var(--ocean-bottom)) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(var(--ocean-top)) 0%,
+        hsl(var(--ocean-bottom)) 100%
+      );
     background-attachment: fixed;
   }
 }
@@ -124,22 +137,89 @@
     backdrop-filter: blur(14px);
     background: hsla(var(--popover), 0.1);
     border: 1px solid hsla(var(--border), 0.5);
-    box-shadow: 0 0 0 1px hsla(var(--border), 0.2), 0 10px 40px rgba(0,0,0,0.4);
+    box-shadow:
+      0 0 0 1px hsla(var(--border), 0.2),
+      0 10px 40px rgba(0, 0, 0, 0.4);
   }
-  .glow-blue { box-shadow: 0 0 0 1px hsla(var(--neon-blue), 0.4), 0 0 18px hsla(var(--neon-blue), 0.6), 0 0 40px hsla(var(--neon-blue), 0.3); }
-  .glow-green { box-shadow: 0 0 0 1px hsla(var(--neon-green), 0.4), 0 0 18px hsla(var(--neon-green), 0.6), 0 0 40px hsla(var(--neon-green), 0.3); }
-  .glow-orange { box-shadow: 0 0 0 1px hsla(var(--neon-orange), 0.4), 0 0 18px hsla(var(--neon-orange), 0.7), 0 0 40px hsla(var(--neon-orange), 0.35); }
-  .glow-red { box-shadow: 0 0 0 1px hsla(var(--neon-red), 0.45), 0 0 18px hsla(var(--neon-red), 0.7), 0 0 40px hsla(var(--neon-red), 0.35); }
-  .glow-aqua { box-shadow: 0 0 0 1px hsla(var(--neon-aqua), 0.4), 0 0 18px hsla(var(--neon-aqua), 0.6), 0 0 40px hsla(var(--neon-aqua), 0.3); }
-  .text-glow-blue { text-shadow: 0 0 16px hsla(var(--neon-blue), 0.7), 0 0 30px hsla(var(--neon-blue), 0.3); }
-  .text-glow-red { text-shadow: 0 0 16px hsla(var(--neon-red), 0.7), 0 0 30px hsla(var(--neon-red), 0.3); }
+  .glow-blue {
+    box-shadow:
+      0 0 0 1px hsla(var(--neon-blue), 0.4),
+      0 0 18px hsla(var(--neon-blue), 0.6),
+      0 0 40px hsla(var(--neon-blue), 0.3);
+  }
+  .glow-green {
+    box-shadow:
+      0 0 0 1px hsla(var(--neon-green), 0.4),
+      0 0 18px hsla(var(--neon-green), 0.6),
+      0 0 40px hsla(var(--neon-green), 0.3);
+  }
+  .glow-orange {
+    box-shadow:
+      0 0 0 1px hsla(var(--neon-orange), 0.4),
+      0 0 18px hsla(var(--neon-orange), 0.7),
+      0 0 40px hsla(var(--neon-orange), 0.35);
+  }
+  .glow-red {
+    box-shadow:
+      0 0 0 1px hsla(var(--neon-red), 0.45),
+      0 0 18px hsla(var(--neon-red), 0.7),
+      0 0 40px hsla(var(--neon-red), 0.35);
+  }
+  .glow-aqua {
+    box-shadow:
+      0 0 0 1px hsla(var(--neon-aqua), 0.4),
+      0 0 18px hsla(var(--neon-aqua), 0.6),
+      0 0 40px hsla(var(--neon-aqua), 0.3);
+  }
+  .text-glow-blue {
+    text-shadow:
+      0 0 16px hsla(var(--neon-blue), 0.7),
+      0 0 30px hsla(var(--neon-blue), 0.3);
+  }
+  .text-glow-red {
+    text-shadow:
+      0 0 16px hsla(var(--neon-red), 0.7),
+      0 0 30px hsla(var(--neon-red), 0.3);
+  }
 
-  @keyframes pulse-glow { 0%,100% { transform: translateY(0); filter: drop-shadow(0 0 10px hsla(var(--neon-blue), .6)); } 50% { transform: translateY(-2px); filter: drop-shadow(0 0 20px hsla(var(--neon-aqua), .8)); } }
-  .pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      transform: translateY(0);
+      filter: drop-shadow(0 0 10px hsla(var(--neon-blue), 0.6));
+    }
+    50% {
+      transform: translateY(-2px);
+      filter: drop-shadow(0 0 20px hsla(var(--neon-aqua), 0.8));
+    }
+  }
+  .pulse-glow {
+    animation: pulse-glow 2.4s ease-in-out infinite;
+  }
 
-  @keyframes slide-up { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
-  .animate-slide-up { animation: slide-up .5s ease-out forwards; }
+  @keyframes slide-up {
+    from {
+      transform: translateY(12px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
 
-  @keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
-  .animate-fade-in { animation: fade-in .5s ease-out forwards; }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
 }

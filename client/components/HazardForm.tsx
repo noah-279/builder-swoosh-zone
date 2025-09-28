@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Hazard } from "./map/MapViewer";
 
-const hazardTypes: Hazard["type"][] = ["Flooding", "Tsunami", "High Waves", "Erosion", "Other"];
+const hazardTypes: Hazard["type"][] = [
+  "Flooding",
+  "Tsunami",
+  "High Waves",
+  "Erosion",
+  "Other",
+];
 
 type Props = {
   onSubmit: (h: Omit<Hazard, "id">) => void;
@@ -22,7 +28,8 @@ export default function HazardForm({ onSubmit }: Props) {
     };
     if (!navigator.geolocation) {
       const c = clampToIndia(22.9734, 78.6569);
-      setLat(c.lat); setLng(c.lng);
+      setLat(c.lat);
+      setLng(c.lng);
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -112,14 +119,22 @@ export default function HazardForm({ onSubmit }: Props) {
       </div>
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-white/60">
-          <span className="h-2 w-2 rounded-full bg-[hsl(var(--neon-green))] animate-pulse" /> Auto-captured via GPS
+          <span className="h-2 w-2 rounded-full bg-[hsl(var(--neon-green))] animate-pulse" />{" "}
+          Auto-captured via GPS
         </div>
-        <button type="submit" className="h-10 px-4 rounded-md bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-semibold glow-blue hover:scale-[1.02] active:scale-[.98] transition">
+        <button
+          type="submit"
+          className="h-10 px-4 rounded-md bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-semibold glow-blue hover:scale-[1.02] active:scale-[.98] transition"
+        >
           Submit Report
         </button>
       </div>
       <div className="rounded-lg overflow-hidden border border-white/10 bg-black/20">
-        <img src={mediaUrl} alt="preview" className="w-full h-40 object-cover opacity-90" />
+        <img
+          src={mediaUrl}
+          alt="preview"
+          className="w-full h-40 object-cover opacity-90"
+        />
       </div>
     </form>
   );

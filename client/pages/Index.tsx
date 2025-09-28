@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import AlertBanner from "@/components/AlertBanner";
-import MapViewer, { type Hazard, type Filters } from "@/components/map/MapViewer";
+import MapViewer, {
+  type Hazard,
+  type Filters,
+} from "@/components/map/MapViewer";
 import RoleSwitch from "@/components/RoleSwitch";
 import HazardForm from "@/components/HazardForm";
 import SocialAnalyticsPanel from "@/components/SocialAnalyticsPanel";
@@ -10,14 +13,26 @@ import data from "@/data/reports.json";
 import { Link } from "react-router-dom";
 
 export default function Index() {
-  const [role, setRole] = useState<"Citizen" | "Analyst" | "Official">("Citizen");
+  const [role, setRole] = useState<"Citizen" | "Analyst" | "Official">(
+    "Citizen",
+  );
   const [reports, setReports] = useState<Hazard[]>(data as unknown as Hazard[]);
-  const [filters, setFilters] = useState<Filters>({ type: "All", source: "All", verified: "All" });
+  const [filters, setFilters] = useState<Filters>({
+    type: "All",
+    source: "All",
+    verified: "All",
+  });
 
-  const verifiedList = useMemo(() => reports.filter((r) => r.verified), [reports]);
+  const verifiedList = useMemo(
+    () => reports.filter((r) => r.verified),
+    [reports],
+  );
 
   const applyReport = (r: Omit<Hazard, "id">) => {
-    setReports((prev) => [{ ...(r as any), id: `new-${prev.length + 1}` }, ...prev]);
+    setReports((prev) => [
+      { ...(r as any), id: `new-${prev.length + 1}` },
+      ...prev,
+    ]);
   };
 
   return (
@@ -28,13 +43,22 @@ export default function Index() {
         <div className="flex items-center gap-3">
           <Logo size={40} />
           <div>
-            <h1 className="font-bold tracking-wide text-lg text-glow-blue">Samraksh — India</h1>
-            <p className="text-xs text-white/60 -mt-1">Integrated ocean hazard reporting & analytics</p>
+            <h1 className="font-bold tracking-wide text-lg text-glow-blue">
+              Samraksh — India
+            </h1>
+            <p className="text-xs text-white/60 -mt-1">
+              Integrated ocean hazard reporting & analytics
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <RoleSwitch value={role} onChange={setRole} />
-          <Link to="/auth" className="text-sm underline decoration-[hsl(var(--neon-aqua))] underline-offset-4 hover:opacity-90">Login/Signup</Link>
+          <Link
+            to="/auth"
+            className="text-sm underline decoration-[hsl(var(--neon-aqua))] underline-offset-4 hover:opacity-90"
+          >
+            Login/Signup
+          </Link>
         </div>
       </header>
 
@@ -50,9 +74,20 @@ export default function Index() {
                   <select
                     className="mt-1 w-full h-10 rounded-md bg-black/30 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-[hsl(var(--neon-blue))] glow-blue"
                     value={filters.type}
-                    onChange={(e) => setFilters((f) => ({ ...f, type: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, type: e.target.value }))
+                    }
                   >
-                    {( ["All", "Flooding", "Tsunami", "High Waves", "Erosion", "Other"] as const).map((t) => (
+                    {(
+                      [
+                        "All",
+                        "Flooding",
+                        "Tsunami",
+                        "High Waves",
+                        "Erosion",
+                        "Other",
+                      ] as const
+                    ).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
@@ -64,9 +99,11 @@ export default function Index() {
                   <select
                     className="mt-1 w-full h-10 rounded-md bg-black/30 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-[hsl(var(--neon-aqua))] glow-aqua"
                     value={filters.source}
-                    onChange={(e) => setFilters((f) => ({ ...f, source: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, source: e.target.value }))
+                    }
                   >
-                    {( ["All", "Citizen", "Official"] as const).map((t) => (
+                    {(["All", "Citizen", "Official"] as const).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
@@ -78,7 +115,9 @@ export default function Index() {
                   <input
                     type="date"
                     className="mt-1 w-full h-10 rounded-md bg-black/30 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-[hsl(var(--neon-blue))] glow-blue"
-                    onChange={(e) => setFilters((f) => ({ ...f, from: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, from: e.target.value }))
+                    }
                   />
                 </div>
                 <div>
@@ -86,7 +125,9 @@ export default function Index() {
                   <input
                     type="date"
                     className="mt-1 w-full h-10 rounded-md bg-black/30 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-[hsl(var(--neon-blue))] glow-blue"
-                    onChange={(e) => setFilters((f) => ({ ...f, to: e.target.value }))}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, to: e.target.value }))
+                    }
                   />
                 </div>
                 <div>
@@ -96,7 +137,10 @@ export default function Index() {
                     value={String(filters.verified ?? "All")}
                     onChange={(e) => {
                       const v = e.target.value as "true" | "false" | "All";
-                      setFilters((f) => ({ ...f, verified: v === "All" ? "All" : v === "true" }));
+                      setFilters((f) => ({
+                        ...f,
+                        verified: v === "All" ? "All" : v === "true",
+                      }));
                     }}
                   >
                     <option value="All">All</option>
@@ -120,12 +164,21 @@ export default function Index() {
                 <h3 className="font-semibold mb-2">Verify Reports</h3>
                 <div className="space-y-2">
                   {reports.slice(0, 6).map((r) => (
-                    <div key={r.id} className="flex items-center justify-between border border-white/10 rounded-lg p-3 bg-black/20">
+                    <div
+                      key={r.id}
+                      className="flex items-center justify-between border border-white/10 rounded-lg p-3 bg-black/20"
+                    >
                       <div className="flex items-center gap-3">
-                        <img src={r.mediaUrl} alt="m" className="w-10 h-10 rounded object-cover" />
+                        <img
+                          src={r.mediaUrl}
+                          alt="m"
+                          className="w-10 h-10 rounded object-cover"
+                        />
                         <div>
                           <div className="text-sm font-medium">{r.type}</div>
-                          <div className="text-xs text-white/60 line-clamp-1 max-w-[220px]">{r.description}</div>
+                          <div className="text-xs text-white/60 line-clamp-1 max-w-[220px]">
+                            {r.description}
+                          </div>
                         </div>
                       </div>
                       <label className="inline-flex items-center gap-2 text-xs">
@@ -134,7 +187,15 @@ export default function Index() {
                           type="checkbox"
                           className="peer hidden"
                           checked={r.verified}
-                          onChange={(e) => setReports((prev) => prev.map((x) => (x.id === r.id ? { ...x, verified: e.target.checked } : x)))}
+                          onChange={(e) =>
+                            setReports((prev) =>
+                              prev.map((x) =>
+                                x.id === r.id
+                                  ? { ...x, verified: e.target.checked }
+                                  : x,
+                              ),
+                            )
+                          }
                         />
                         <span className="w-10 h-6 rounded-full bg-black/40 border border-white/10 relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:bg-[hsl(var(--neon-red))] peer-checked:after:bg-[hsl(var(--neon-green))] peer-checked:bg-[hsl(var(--neon-green))]/20 glow-blue transition-all"></span>
                       </label>

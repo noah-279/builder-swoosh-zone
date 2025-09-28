@@ -43,17 +43,23 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className={cn("w-full max-w-md p-6 rounded-2xl glass animate-slide-up")}>        
+      <div
+        className={cn("w-full max-w-md p-6 rounded-2xl glass animate-slide-up")}
+      >
         <div className="mb-6 text-center grid place-items-center gap-3">
           <Logo size={56} />
           <h1 className="text-2xl font-bold text-glow-blue">Samraksh</h1>
-          <p className="text-sm text-muted-foreground -mt-1">{mode === "signup" ? "Create an account" : "Welcome back"}</p>
+          <p className="text-sm text-muted-foreground -mt-1">
+            {mode === "signup" ? "Create an account" : "Welcome back"}
+          </p>
         </div>
         <div className="flex gap-2 mb-6">
           <button
             className={cn(
               "flex-1 h-10 rounded-md transition-all",
-              mode === "signup" ? "bg-primary/20 glow-blue" : "bg-muted/40 hover:bg-muted/60",
+              mode === "signup"
+                ? "bg-primary/20 glow-blue"
+                : "bg-muted/40 hover:bg-muted/60",
             )}
             onClick={() => setMode("signup")}
           >
@@ -62,7 +68,9 @@ export default function Auth() {
           <button
             className={cn(
               "flex-1 h-10 rounded-md transition-all",
-              mode === "login" ? "bg-primary/20 glow-blue" : "bg-muted/40 hover:bg-muted/60",
+              mode === "login"
+                ? "bg-primary/20 glow-blue"
+                : "bg-muted/40 hover:bg-muted/60",
             )}
             onClick={() => setMode("login")}
           >
@@ -97,7 +105,9 @@ export default function Auth() {
                   key={r.label}
                   className={cn(
                     "px-2 py-1 rounded-md border border-white/10 bg-black/20",
-                    r.test(password) ? "text-emerald-300/90 glow-green" : "text-white/50",
+                    r.test(password)
+                      ? "text-emerald-300/90 glow-green"
+                      : "text-white/50",
                   )}
                 >
                   {r.label}
@@ -107,7 +117,9 @@ export default function Auth() {
           </div>
           {mode === "signup" && (
             <div>
-              <label className="text-sm text-muted-foreground">Confirm password</label>
+              <label className="text-sm text-muted-foreground">
+                Confirm password
+              </label>
               <input
                 type="password"
                 value={confirm}
@@ -134,7 +146,12 @@ export default function Auth() {
         </form>
 
         <div className="text-xs text-center mt-4 text-white/60">
-          <Link to="/" className="underline decoration-[hsl(var(--neon-aqua))] decoration-2 underline-offset-4 hover:text-white">Back to dashboard</Link>
+          <Link
+            to="/"
+            className="underline decoration-[hsl(var(--neon-aqua))] decoration-2 underline-offset-4 hover:text-white"
+          >
+            Back to dashboard
+          </Link>
         </div>
       </div>
     </div>
