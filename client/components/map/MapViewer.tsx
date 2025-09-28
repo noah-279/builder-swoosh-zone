@@ -54,9 +54,9 @@ function severityColor(count: number) {
 
 function createSeverityMarker(c: Cluster) {
   const color = severityColor(c.count);
-  const size = Math.min(22 + c.count * 2, 36);
+  const size = Math.min(22 + c.count * 2, 38);
   const pulse = c.count >= 6 ? "pulse-glow" : "";
-  const html = `<div class="${pulse}" style="width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;background:hsla(${color},0.18);color:#fff;font-weight:700;border:1px solid hsla(${color},0.6);box-shadow:0 0 14px hsla(${color},0.7),0 0 28px hsla(${color},0.35);">${c.count}</div>`;
+  const html = `<div class="${pulse}" style="width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;background:hsla(${color},0.35);color:#fff;font-weight:800;letter-spacing:.2px;border:1px solid hsla(${color},0.8);box-shadow:0 0 12px hsla(${color},0.9),0 0 32px hsla(${color},0.5);">${c.count}</div>`;
   return L.marker([c.lat, c.lng], {
     icon: L.divIcon({ className: "", html, iconSize: [size, size], iconAnchor: [size/2, size/2] }),
   });
@@ -106,6 +106,29 @@ export default function MapViewer({ data, filters }: { data: Hazard[]; filters: 
 
     // Controls
     L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    // Legend
+    const Legend = L.Control.extend({
+      options: { position: "bottomleft" as const },
+      onAdd: function () {
+        const div = L.DomUtil.create("div", "leaflet-control");
+        div.style.background = "rgba(0,0,0,.35)";
+        div.style.backdropFilter = "blur(8px)";
+        div.style.border = "1px solid rgba(255,255,255,.15)";
+        div.style.borderRadius = "10px";
+        div.style.padding = "6px 8px";
+        div.style.color = "#e5e7eb";
+        div.innerHTML = `
+          <div style="font-size:11px;margin-bottom:4px;color:#9ca3af">Severity</div>
+          <div style="display:flex;gap:8px;align-items:center;font-size:11px">
+            <span style="width:12px;height:12px;border-radius:50%;background:hsl(var(--neon-green));display:inline-block"></span> Low
+            <span style="width:12px;height:12px;border-radius:50%;background:hsl(var(--neon-orange));display:inline-block;margin-left:8px"></span> Med
+            <span style="width:12px;height:12px;border-radius:50%;background:hsl(var(--neon-red));display:inline-block;margin-left:8px"></span> High
+          </div>`;
+        return div;
+      },
+    });
+    new Legend().addTo(map);
 
     layerGroupRef.current = L.layerGroup().addTo(map);
   }, []);
