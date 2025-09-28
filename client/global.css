@@ -55,6 +55,7 @@
     --neon-blue: 200 100% 60%;
     --neon-aqua: 170 100% 50%;
     --neon-green: 150 100% 45%;
+    --neon-orange: 30 100% 55%;
     --neon-red: 0 100% 55%;
 
     /* Gradients */
@@ -127,6 +128,7 @@
   }
   .glow-blue { box-shadow: 0 0 0 1px hsla(var(--neon-blue), 0.4), 0 0 18px hsla(var(--neon-blue), 0.6), 0 0 40px hsla(var(--neon-blue), 0.3); }
   .glow-green { box-shadow: 0 0 0 1px hsla(var(--neon-green), 0.4), 0 0 18px hsla(var(--neon-green), 0.6), 0 0 40px hsla(var(--neon-green), 0.3); }
+  .glow-orange { box-shadow: 0 0 0 1px hsla(var(--neon-orange), 0.4), 0 0 18px hsla(var(--neon-orange), 0.7), 0 0 40px hsla(var(--neon-orange), 0.35); }
   .glow-red { box-shadow: 0 0 0 1px hsla(var(--neon-red), 0.45), 0 0 18px hsla(var(--neon-red), 0.7), 0 0 40px hsla(var(--neon-red), 0.35); }
   .glow-aqua { box-shadow: 0 0 0 1px hsla(var(--neon-aqua), 0.4), 0 0 18px hsla(var(--neon-aqua), 0.6), 0 0 40px hsla(var(--neon-aqua), 0.3); }
   .text-glow-blue { text-shadow: 0 0 16px hsla(var(--neon-blue), 0.7), 0 0 30px hsla(var(--neon-blue), 0.3); }
