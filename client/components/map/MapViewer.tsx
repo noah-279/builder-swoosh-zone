@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
 import L, { Map as LeafletMap } from "leaflet";
-import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 
 export type Hazard = {
