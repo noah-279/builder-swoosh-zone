@@ -64,7 +64,16 @@ export default function MapViewer({ data, filters }: { data: Hazard[]; filters: 
 
   useEffect(() => {
     if (mapRef.current) return; // init once
-    const map = L.map("hazard-map", { zoomControl: false, scrollWheelZoom: true, attributionControl: false }).setView([20, 0], 2);
+    const INDIA_BOUNDS = L.latLngBounds([6.5, 68.0], [37.5, 97.5]);
+    const map = L.map("hazard-map", {
+      zoomControl: false,
+      scrollWheelZoom: true,
+      attributionControl: false,
+      maxBounds: INDIA_BOUNDS,
+      maxBoundsViscosity: 1.0,
+      minZoom: 4,
+      maxZoom: 10,
+    }).setView([22.9734, 78.6569], 5);
     mapRef.current = map;
 
     // Dark tiles
